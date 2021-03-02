@@ -1,9 +1,10 @@
 import React, { useCallback, useRef } from 'react'
-import { Image, View, ScrollView, KeyboardAvoidingView, Platform, TextInput } from 'react-native'
+import { Image, View, ScrollView, KeyboardAvoidingView, Platform, TextInput, Alert } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import { Form } from '@unform/mobile'
 import { FormHandles } from '@unform/core'
+import * as Yup from 'yup'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
@@ -11,6 +12,13 @@ import Button from '../../components/Button'
 import logoImg from '../../assets/images/logo.png'
 
 import { Container, Title, BackToSignInButton, BackToSignInButtonText } from './styles'
+import getValidationErrors from '../../utils/getValidationErrors'
+
+interface SignUpFormData {
+  name: string
+  email: string
+  password: string
+}
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
@@ -20,8 +28,36 @@ const SignUp: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null)
   const passwordConfirmInputRef = useRef<TextInput>(null)
 
-  const handleSignIn = useCallback((data: object) => {
-    console.log(data)
+  const handleSignUp = useCallback(async (data: SignUpFormData) => {
+    try {
+      formRef.current?.setErrors({})
+      const schema = Yup.object().shape({
+        name: Yup.string().required('O campo nome é orbigatório'),
+        email: Yup.string().required('O campo e-mail é obrigatório').email('Digite um e-mail válido'),
+        password: Yup.string()
+          .required('O campo senha é obrigatório')
+          .min(6, 'A senha deve ter no mínimo 6 caracteres'),
+        confirmPassword: Yup.string()
+          .oneOf([Yup.ref('password'), null], 'As senhas informadas não conferem')
+          .required('A confirmação da senha é orbigatória')
+      })
+
+      await schema.validate(data, {
+        abortEarly: false
+      })
+
+      // await api.post('/users', data)
+
+      // history.push('/')
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err)
+        formRef.current?.setErrors(errors)
+        return
+      }
+
+      Alert.alert('Opss...Erro no cadastro', 'Ocorreu um erro ao efetuar o cadastro, tente novamente')
+    }
   }, [])
 
   return (
@@ -35,7 +71,7 @@ const SignUp: React.FC = () => {
               <Title>Crie sua conta</Title>
             </View>
 
-            <Form ref={formRef} onSubmit={handleSignIn}>
+            <Form ref={formRef} onSubmit={handleSignUp}>
               <Input
                 autoCapitalize='words'
                 name='name'
