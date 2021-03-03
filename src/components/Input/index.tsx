@@ -37,7 +37,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, ico
   useImperativeHandle(ref, () => ({
     focus() {
       inputElementRef.current.focus()
-    }
+    },
   }))
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, ico
       clearValue() {
         inputValueRef.current.value = ''
         inputElementRef.current.clear()
-      }
+      },
     })
   }, [fieldName, registerField])
 
@@ -61,12 +61,12 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, ico
       <IconInput name={icon} size={20} color={isFilled || isFocused ? '#ff9000' : '#666360'} />
       <TextInput
         ref={inputElementRef}
-        keyboardAppearance='dark'
-        placeholderTextColor='#666360'
+        keyboardAppearance="dark"
+        placeholderTextColor="#666360"
         defaultValue={defaultValue}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
-        onChangeText={(value) => (inputValueRef.current.value = value)}
+        onChangeText={value => (inputValueRef.current.value = value)}
         {...props}
       />
     </Container>

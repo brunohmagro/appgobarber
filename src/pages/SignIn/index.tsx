@@ -17,7 +17,7 @@ import {
   ForgotPassword,
   ForgotPasswordText,
   CreateAccountButton,
-  CreateAccountButtonText
+  CreateAccountButtonText,
 } from './styles'
 import getValidationErrors from '../../utils/getValidationErrors'
 
@@ -36,11 +36,11 @@ const SignUp: React.FC = () => {
       formRef.current?.setErrors({})
       const schema = Yup.object().shape({
         email: Yup.string().required('O campo e-mail é obrigatório').email('Digite um e-mail válido'),
-        password: Yup.string().required('O campo senha é obrigatório')
+        password: Yup.string().required('O campo senha é obrigatório'),
       })
 
       await schema.validate(data, {
-        abortEarly: false
+        abortEarly: false,
       })
 
       // await signIn({
@@ -63,7 +63,7 @@ const SignUp: React.FC = () => {
   return (
     <>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} enabled>
-        <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={{ flex: 1 }}>
+        <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
           <Container>
             <Image source={logoImg} />
 
@@ -73,24 +73,24 @@ const SignUp: React.FC = () => {
 
             <Form ref={formRef} onSubmit={handleSignIn}>
               <Input
-                name='email'
-                icon='mail'
-                placeholder='E-mail'
+                name="email"
+                icon="mail"
+                placeholder="E-mail"
                 autoCorrect={false}
-                autoCapitalize='none'
-                keyboardType='email-address'
-                returnKeyType='next'
+                autoCapitalize="none"
+                keyboardType="email-address"
+                returnKeyType="next"
                 onSubmitEditing={() => {
                   passwordInputRef.current?.focus()
                 }}
               />
               <Input
                 ref={passwordInputRef}
-                name='password'
-                icon='lock'
-                placeholder='Senha'
+                name="password"
+                icon="lock"
+                placeholder="Senha"
                 secureTextEntry
-                returnKeyType='send'
+                returnKeyType="send"
                 onSubmitEditing={() => {
                   formRef.current?.submitForm()
                 }}
@@ -113,7 +113,7 @@ const SignUp: React.FC = () => {
       </KeyboardAvoidingView>
 
       <CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
-        <Icon name='log-in' size={20} color='#ff9000' />
+        <Icon name="log-in" size={20} color="#ff9000" />
         <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
       </CreateAccountButton>
     </>

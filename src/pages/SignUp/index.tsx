@@ -41,11 +41,11 @@ const SignUp: React.FC = () => {
           .min(6, 'A senha deve ter no mínimo 6 caracteres'),
         confirmPassword: Yup.string()
           .oneOf([Yup.ref('password'), null], 'As senhas informadas não conferem')
-          .required('A confirmação da senha é orbigatória')
+          .required('A confirmação da senha é orbigatória'),
       })
 
       await schema.validate(data, {
-        abortEarly: false
+        abortEarly: false,
       })
 
       await api.post('/users', data)
@@ -67,7 +67,7 @@ const SignUp: React.FC = () => {
   return (
     <>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} enabled>
-        <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={{ flex: 1 }}>
+        <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
           <Container>
             <Image source={logoImg} />
 
@@ -77,11 +77,11 @@ const SignUp: React.FC = () => {
 
             <Form ref={formRef} onSubmit={handleSignUp}>
               <Input
-                autoCapitalize='words'
-                name='name'
-                icon='user'
-                placeholder='Nome completo'
-                returnKeyType='next'
+                autoCapitalize="words"
+                name="name"
+                icon="user"
+                placeholder="Nome completo"
+                returnKeyType="next"
                 onSubmitEditing={() => {
                   emailInputRef.current?.focus()
                 }}
@@ -89,32 +89,32 @@ const SignUp: React.FC = () => {
               <Input
                 ref={emailInputRef}
                 autoCorrect={false}
-                autoCapitalize='none'
-                name='email'
-                icon='mail'
-                placeholder='E-mail'
-                returnKeyType='next'
+                autoCapitalize="none"
+                name="email"
+                icon="mail"
+                placeholder="E-mail"
+                returnKeyType="next"
                 onSubmitEditing={() => {
                   passwordInputRef.current?.focus()
                 }}
               />
               <Input
                 ref={passwordInputRef}
-                name='password'
-                icon='lock'
-                placeholder='Senha'
+                name="password"
+                icon="lock"
+                placeholder="Senha"
                 secureTextEntry
-                returnKeyType='next'
+                returnKeyType="next"
                 onSubmitEditing={() => {
                   passwordConfirmInputRef.current?.focus()
                 }}
               />
               <Input
                 ref={passwordConfirmInputRef}
-                name='confirmPassword'
-                icon='lock'
-                placeholder='Confirmar senha'
-                returnKeyType='send'
+                name="confirmPassword"
+                icon="lock"
+                placeholder="Confirmar senha"
+                returnKeyType="send"
                 onSubmitEditing={() => {
                   formRef.current?.submitForm()
                 }}
@@ -133,7 +133,7 @@ const SignUp: React.FC = () => {
         </ScrollView>
 
         <BackToSignInButton onPress={() => navigation.goBack()}>
-          <Icon name='arrow-left' size={20} color='#fff' />
+          <Icon name="arrow-left" size={20} color="#fff" />
           <BackToSignInButtonText>Voltar para logon</BackToSignInButtonText>
         </BackToSignInButton>
       </KeyboardAvoidingView>
