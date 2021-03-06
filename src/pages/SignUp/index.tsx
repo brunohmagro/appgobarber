@@ -30,39 +30,42 @@ const SignUp: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null)
   const passwordConfirmInputRef = useRef<TextInput>(null)
 
-  const handleSignUp = useCallback(async (data: SignUpFormData) => {
-    try {
-      formRef.current?.setErrors({})
-      const schema = Yup.object().shape({
-        name: Yup.string().required('O campo nome é orbigatório'),
-        email: Yup.string().required('O campo e-mail é obrigatório').email('Digite um e-mail válido'),
-        password: Yup.string()
-          .required('O campo senha é obrigatório')
-          .min(6, 'A senha deve ter no mínimo 6 caracteres'),
-        confirmPassword: Yup.string()
-          .oneOf([Yup.ref('password'), null], 'As senhas informadas não conferem')
-          .required('A confirmação da senha é orbigatória'),
-      })
+  const handleSignUp = useCallback(
+    async (data: SignUpFormData) => {
+      try {
+        formRef.current?.setErrors({})
+        const schema = Yup.object().shape({
+          name: Yup.string().required('O campo nome é orbigatório'),
+          email: Yup.string().required('O campo e-mail é obrigatório').email('Digite um e-mail válido'),
+          password: Yup.string()
+            .required('O campo senha é obrigatório')
+            .min(6, 'A senha deve ter no mínimo 6 caracteres'),
+          confirmPassword: Yup.string()
+            .oneOf([Yup.ref('password'), null], 'As senhas informadas não conferem')
+            .required('A confirmação da senha é orbigatória'),
+        })
 
-      await schema.validate(data, {
-        abortEarly: false,
-      })
+        await schema.validate(data, {
+          abortEarly: false,
+        })
 
-      await api.post('/users', data)
+        await api.post('/users', data)
 
-      Alert.alert('Cadastro realizado com sucesso!', 'Você já pode fazer o login no aplicativo')
+        Alert.alert('Cadastro realizado com sucesso!', 'Você já pode fazer o login no aplicativo')
 
-      navigation.goBack()
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err)
-        formRef.current?.setErrors(errors)
-        return
+        navigation.goBack()
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err)
+          formRef.current?.setErrors(errors)
+          return
+        }
+
+        Alert.alert('Opss...Erro no cadastro', 'Ocorreu um erro ao efetuar o cadastro, tente novamente')
       }
-
-      Alert.alert('Opss...Erro no cadastro', 'Ocorreu um erro ao efetuar o cadastro, tente novamente')
-    }
-  }, [])
+    },
+    [navigation],
+  )
 
   return (
     <>

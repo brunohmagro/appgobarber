@@ -6,6 +6,8 @@ import { Form } from '@unform/mobile'
 import { FormHandles } from '@unform/core'
 import * as Yup from 'yup'
 
+import { useAuth } from '../../hooks/auth'
+
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
@@ -31,34 +33,37 @@ const SignUp: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null)
   const navigation = useNavigation()
 
-  const handleSignIn = useCallback(async (data: SignInFormData) => {
-    try {
-      formRef.current?.setErrors({})
-      const schema = Yup.object().shape({
-        email: Yup.string().required('O campo e-mail é obrigatório').email('Digite um e-mail válido'),
-        password: Yup.string().required('O campo senha é obrigatório'),
-      })
+  const { signIn, user } = useAuth()
 
-      await schema.validate(data, {
-        abortEarly: false,
-      })
+  const handleSignIn = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({})
+        const schema = Yup.object().shape({
+          email: Yup.string().required('O campo e-mail é obrigatório').email('Digite um e-mail válido'),
+          password: Yup.string().required('O campo senha é obrigatório'),
+        })
 
-      // await signIn({
-      //   email: data.email,
-      //   password: data.password
-      // })
+        await schema.validate(data, {
+          abortEarly: false,
+        })
 
-      // history.push('/dashboard')
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err)
-        formRef.current?.setErrors(errors)
-        return
+        await signIn({
+          email: data.email,
+          password: data.password,
+        })
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err)
+          formRef.current?.setErrors(errors)
+          return
+        }
+
+        Alert.alert('Erro na autenticação', 'Ocorreu um erro ao fazer o login, cheque as credenciais')
       }
-
-      Alert.alert('Erro na autenticação', 'Ocorreu um erro ao fazer o login, cheque as credenciais')
-    }
-  }, [])
+    },
+    [signIn],
+  )
 
   return (
     <>
@@ -105,7 +110,11 @@ const SignUp: React.FC = () => {
               </Button>
             </Form>
 
-            <ForgotPassword onPress={() => {}}>
+            <ForgotPassword
+              onPress={() => {
+                console.log('teste')
+              }}
+            >
               <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
             </ForgotPassword>
           </Container>
