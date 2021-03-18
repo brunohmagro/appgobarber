@@ -4,6 +4,7 @@ import { FlatList } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 
 import { Provider } from './index'
+import colors from '../../utils/styles/colors'
 
 export const Container = styled.View`
   flex: 1;
@@ -12,20 +13,20 @@ export const Container = styled.View`
 export const Header = styled.View`
   padding: 24px;
   padding-top: ${getStatusBarHeight() + 24}px;
-  background: #28262e;
+  background: ${colors.GRAY_PRIMARY};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
 
 export const HeaderTitle = styled.Text`
-  color: #f4ede8;
+  color: ${colors.GRAY_TERTIARY};
   font-size: 24px;
   font-family: 'RobotoSlab-Regular';
 `
 
 export const UserName = styled.Text`
-  color: #ff9000;
+  color: ${colors.ORANGE_PRIMARY};
 `
 export const ProfileButton = styled.TouchableOpacity``
 
@@ -42,12 +43,12 @@ export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
 export const ProvidedersListTitle = styled.Text`
   font-size: 24px;
   margin-bottom: 24px;
-  color: #f4ede8;
+  color: ${colors.GRAY_TERTIARY};
   font-family: 'RobotoSlab-Medium';
 `
 
 export const ProviderContainer = styled(RectButton)`
-  background: #3e3b47;
+  background: ${colors.GRAY_PRIMARY};
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 16px;
@@ -69,7 +70,7 @@ export const ProviderInfo = styled.View`
 export const ProviderName = styled.Text`
   font-family: 'RobotoSlab-Medium';
   font-size: 18px;
-  color: #f4ede8;
+  color: ${colors.GRAY_TERTIARY};
 `
 
 export const ProviderMeta = styled.View`
@@ -80,6 +81,6 @@ export const ProviderMeta = styled.View`
 
 export const ProviderMetaText = styled.Text`
   margin-left: 8px;
-  color: #999591;
+  color: ${colors.GRAY_SECONDARY};
   font-family: 'RobotoSlab-Regular';
 `
