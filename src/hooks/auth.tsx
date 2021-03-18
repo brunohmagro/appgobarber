@@ -8,15 +8,22 @@ interface SignInCredencials {
 }
 
 interface AuthContextData {
-  user: Record<string, unknown>
+  user: User
   signIn: (credentials: SignInCredencials) => Promise<void>
   signOut(): void
   loading: boolean
 }
 
+interface User {
+  id: string
+  name: string
+  email: string
+  avatar_url: string
+}
+
 interface AuthState {
   token: string
-  user: Record<string, unknown>
+  user: User
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)

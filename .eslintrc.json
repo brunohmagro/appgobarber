@@ -26,6 +26,16 @@
         "prettier"
     ],
     "rules": {
+      "camelcase": [
+        "error",
+        {
+            "allow": [
+                "avatar_url",
+                "confirm_password",
+                "current_password"
+            ]
+        }
+      ],
       "react/prop-types": "off",
       "prettier/prettier": "error",
       "react-hooks/rules-of-hooks": "error",
