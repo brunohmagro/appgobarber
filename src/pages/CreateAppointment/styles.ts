@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
-import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper'
 import styled from 'styled-components/native'
 
 import colors from '../../utils/styles/colors'
@@ -138,4 +138,18 @@ export const HourText = styled.Text<HourTextProps>`
   color: ${props => (props.selected ? colors.GRAY_PRIMARY : colors.GRAY_QUATERNARY)};
   font-family: 'RobotoSlab-Regular';
   font-size: 16px;
+`
+export const CreateAppointmentButton = styled(RectButton)`
+  height: 50px;
+  background: ${colors.ORANGE_PRIMARY};
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 24px 24px;
+`
+
+export const CreateAppointmentButtonText = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  font-size: 16px;
+  color: ${colors.GRAY_SECONDARY};
 `

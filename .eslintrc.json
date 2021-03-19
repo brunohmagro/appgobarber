@@ -32,7 +32,8 @@
             "allow": [
                 "avatar_url",
                 "confirm_password",
-                "current_password"
+                "current_password",
+                "provider_id"
             ]
         }
       ],

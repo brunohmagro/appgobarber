@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Icon from 'react-native-vector-icons/Feather'
-import { Platform } from 'react-native'
+import { Alert, Platform } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { format } from 'date-fns'
 
@@ -28,6 +28,8 @@ import {
   SectionContent,
   Hour,
   HourText,
+  CreateAppointmentButton,
+  CreateAppointmentButtonText,
 } from './styles'
 import colors from '../../utils/styles/colors'
 import api from '../../services/api'
@@ -78,7 +80,7 @@ const CreateAppointment: React.FC = () => {
       })
   }, [selectedDate, selectedProvider])
 
-  const { goBack } = useNavigation()
+  const { goBack, navigate } = useNavigation()
 
   const navigateBack = useCallback(() => {
     goBack()
@@ -130,6 +132,24 @@ const CreateAppointment: React.FC = () => {
   const handleSelectHour = useCallback((hour: number) => {
     setSelectedHour(hour)
   }, [])
+
+  const handleCreateAppointment = useCallback(async () => {
+    try {
+      const date = new Date(selectedDate)
+      date.setHours(selectedHour)
+      date.setMinutes(0)
+
+      await api.post('/appointments', {
+        provider_id: selectedProvider,
+        date,
+      })
+
+      navigate('AppointmentCreated', { date: date.getTime() })
+    } catch (error) {
+      // console.log(error)
+      Alert.alert('Erro ao criar o agendamento', 'Ocorreu um erro ao criar o agendamento, tente novamente.')
+    }
+  }, [navigate, selectedDate, selectedHour, selectedProvider])
 
   return (
     <Container>
@@ -228,6 +248,10 @@ const CreateAppointment: React.FC = () => {
             </SectionContent>
           </Section>
         </Schedule>
+
+        <CreateAppointmentButton onPress={handleCreateAppointment}>
+          <CreateAppointmentButtonText>Agendar</CreateAppointmentButtonText>
+        </CreateAppointmentButton>
       </Content>
     </Container>
   )
