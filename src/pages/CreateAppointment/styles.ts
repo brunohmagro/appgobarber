@@ -71,3 +71,26 @@ export const ProviderName = styled.Text<PropsProviderName>`
   font-family: 'RobotoSlab-Medium';
   color: ${props => (props.selected ? colors.GRAY_PRIMARY : colors.GRAY_QUATERNARY)};
 `
+
+export const Calendar = styled.View``
+
+export const Title = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  color: ${colors.GRAY_QUATERNARY};
+  font-size: 24px;
+  margin: 0 24px 24px;
+`
+export const OpenDatePickerButton = styled(RectButton)`
+  height: 46px;
+  background: ${colors.ORANGE_PRIMARY};
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 24px;
+`
+
+export const OpenDatePickerButtonText = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  font-size: 16px;
+  color: ${colors.GRAY_SECONDARY};
+`
