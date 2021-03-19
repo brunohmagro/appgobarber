@@ -81,6 +81,6 @@ export const ProviderMeta = styled.View`
 
 export const ProviderMetaText = styled.Text`
   margin-left: 8px;
-  color: ${colors.GRAY_SECONDARY};
+  color: ${colors.GRAY_TERTIARY};
   font-family: 'RobotoSlab-Regular';
 `

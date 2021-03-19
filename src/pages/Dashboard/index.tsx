@@ -21,6 +21,8 @@ import {
 
 import { useAuth } from '../../hooks/auth'
 import api from '../../services/api'
+import colors from '../../utils/styles/colors'
+import AvatarDedault from '../../components/Avatar/Default'
 
 export interface Provider {
   id: string
@@ -38,7 +40,7 @@ const Dashboard: React.FC = () => {
     api.get('/providers').then(response => {
       setProviders(response.data)
     })
-  })
+  }, [])
 
   const navigateToProfile = useCallback(() => {
     navigate('Profile')
@@ -70,18 +72,22 @@ const Dashboard: React.FC = () => {
         ListHeaderComponent={<ProvidedersListTitle>Cabeleireiros</ProvidedersListTitle>}
         renderItem={({ item: provider }) => (
           <ProviderContainer onPress={() => navigateToCreateAppointment(provider.id)}>
-            <ProviderAvatar source={{ uri: provider.avatar_url }} />
+            {provider.avatar_url ? (
+              <ProviderAvatar source={{ uri: provider.avatar_url }} />
+            ) : (
+              <AvatarDedault size={28} width={72} height={72} name="user" background={colors.GRAY_SECONDARY} />
+            )}
 
             <ProviderInfo>
               <ProviderName>{provider.name}</ProviderName>
 
               <ProviderMeta>
-                <Icon name="calendar" size={14} color="#ff9000" />
+                <Icon name="calendar" size={14} color={colors.ORANGE_PRIMARY} />
                 <ProviderMetaText>Segunda à sábado</ProviderMetaText>
               </ProviderMeta>
 
               <ProviderMeta>
-                <Icon name="clock" size={14} color="#ff9000" />
+                <Icon name="clock" size={14} color={colors.ORANGE_PRIMARY} />
                 <ProviderMetaText>08:00 às 18:00</ProviderMetaText>
               </ProviderMeta>
             </ProviderInfo>
