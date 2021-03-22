@@ -5,6 +5,7 @@ const colors = {
   GRAY_TERTIARY: '#999591',
   GRAY_QUATERNARY: '#f4ede8',
   GRAY_QUINARY: '#3E3B47',
+  GREEN_PRIMARY: '#04d361',
   WHITE: '#FFFFFF',
   BLACK: '#000000',
 }
