@@ -22,6 +22,7 @@ export const Description = styled.Text`
   font-size: 18px;
   color: ${colors.GRAY_TERTIARY};
   margin-top: 16px;
+  text-align: center;
 `
 
 export const OkButton = styled(RectButton)`
