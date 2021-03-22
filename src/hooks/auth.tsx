@@ -10,6 +10,7 @@ interface SignInCredencials {
 interface AuthContextData {
   user: User
   signIn: (credentials: SignInCredencials) => Promise<void>
+  updateUser(user: User): Promise<void>
   signOut(): void
   loading: boolean
 }
@@ -62,13 +63,28 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({ token, user })
   }, [])
 
+  const updateUser = useCallback(
+    async (user: User) => {
+      await AsyncStorage.setItem('@GoBarber:user', JSON.stringify(user))
+      setData({
+        token: data.token,
+        user,
+      })
+    },
+    [setData, data.token],
+  )
+
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@GoBarber:token', '@GoBarber:user'])
 
     setData({} as AuthState)
   }, [])
 
-  return <AuthContext.Provider value={{ user: data.user, signIn, signOut, loading }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user: data.user, signIn, updateUser, signOut, loading }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export function useAuth(): AuthContextData {

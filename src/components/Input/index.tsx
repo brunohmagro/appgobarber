@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef, useState, useCallback } from 'react'
-import { TextInputProps } from 'react-native'
+import { StyleProp, TextInputProps, ViewStyle } from 'react-native'
 import { useField } from '@unform/core'
 
 import { Container, TextInput, IconInput } from './styles'
@@ -7,6 +7,7 @@ import { Container, TextInput, IconInput } from './styles'
 interface InputProps extends TextInputProps {
   name: string
   icon: string
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 interface InputValueReference {
@@ -17,7 +18,10 @@ interface InputRef {
   focus(): void
 }
 
-const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, icon, ...props }, ref) => {
+const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
+  { name, icon, containerStyle = {}, ...props },
+  ref,
+) => {
   const inputElementRef = useRef<any>(null)
   const { registerField, defaultValue, fieldName, error } = useField(name)
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue })
@@ -45,7 +49,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, ico
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
-      setValue(ref: any, value: string) {
+      setValue(reference: unknown, value: string) {
         inputValueRef.current.value = value
         inputElementRef.current.setNativeProps({ text: value })
       },
@@ -57,7 +61,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, ico
   }, [fieldName, registerField])
 
   return (
-    <Container isFocused={isFocused} isErrored={!!error}>
+    <Container style={containerStyle} isFocused={isFocused} isErrored={!!error}>
       <IconInput name={icon} size={20} color={isFilled || isFocused ? '#ff9000' : '#666360'} />
       <TextInput
         ref={inputElementRef}
@@ -66,7 +70,9 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, ico
         defaultValue={defaultValue}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
-        onChangeText={value => (inputValueRef.current.value = value)}
+        onChangeText={value => {
+          inputValueRef.current.value = value
+        }}
         {...props}
       />
     </Container>
