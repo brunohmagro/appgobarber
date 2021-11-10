@@ -18,25 +18,26 @@ This layout was developed by: [Rocketseat](https://github.com/Rocketseat)
 
   <div align="center">
 
-  <img src="https://github.com/brunohmagro/appgobarber/blob/master/.github/images/capa.svg" title="Layout">
+  <img src="https://github.com/brunohmagro/appgobarber/blob/master/.github/images/capa.png" title="Layout">
 
 </div>
 
 ## Technologies :books:
 
 - [React Native](https://reactnative.dev/)
-- [Expo](https://docs.expo.io/get-started/installation/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [Styled Components](https://styled-components.com/)
-- [React Hook Form](https://react-hook-form.com/)
 - [Yup](https://www.npmjs.com/package/yup)
+- [Axios](https://github.com/axios/axios)
+- [Unform](https://unform.dev/)
 
 ## Building :arrow_forward:
 
-You'll need [Node.js](https://nodejs.org) and [Expo](https://docs.expo.io/get-started/installation/) installed on your computer in order to build this app.
+You'll need [Node.js](https://nodejs.org) and run the Backend on your computer in order to build this app.
 
 ```
 git clone git@github.com:brunohmagro/appgobarber.git
-$ cd gofinances
+$ cd appgobarber
 $ yarn install
 $ yarn android or yarn ios
 ```
