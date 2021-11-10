@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/brunohmagro/appgobarber/src/assets/images/logo.png" width="300" title="GoBarber">
+  <img src="https://github.com/brunohmagro/appgobarber/blob/master/.github/images/logo.svg" width="300" title="GoBarber">
   
 </h1>
 
@@ -18,9 +18,7 @@ This layout was developed by: [Rocketseat](https://github.com/Rocketseat)
 
   <div align="center">
 
-  <img src="/.github/home.png" width="250" title="logo">
-  <img src="/.github/summary.png" width="250" title="logo">
-  <img src="/.github/register_transactions.png" width="250" title="logo">
+  <img src="https://github.com/brunohmagro/appgobarber/blob/master/.github/images/capa.svg" title="Layout">
 
 </div>
 
