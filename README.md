@@ -33,7 +33,7 @@ This layout was developed by: [Rocketseat](https://github.com/Rocketseat)
 
 ## Building :arrow_forward:
 
-You'll need [Node.js](https://nodejs.org) and run the Backend on your computer in order to build this app.
+You'll need [Node.js](https://nodejs.org) and run the [Backend](https://github.com/brunohmagro/gobarber-backend) on your computer in order to build this app.
 
 ```
 git clone git@github.com:brunohmagro/appgobarber.git
