@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/brunohmagro/gofinances/main/src/assets/icons/logo_color.svg" width="300" title="logo">
+  <img src="https://raw.githubusercontent.com/brunohmagro/appgobarber/src/assets/images/logo.png" width="300" title="GoBarber">
   
 </h1>
 
